@@ -4,18 +4,17 @@ import CardsComponent from "@/components/Cards/CardsComponent";
 import Image from "next/image";
 import  FooterComponent  from '@/components/Footer/FooterComponent';
 import HeroComponent  from '@/components/Hero/HeroComponent';
+import HeroScroller from "@/components/HeroScroller/HeroScroller";
 
 
 export default function Home() {
   return (
-   <div className="bg-slate-300">
+   <div >
     <NavbarComponent/>
-      <HeroComponent />
+    
+      <HeroScroller />
     <CardsComponent />
      
-    this is my home page
-    
-    
     
     
     <FooterComponent />

@@ -5,20 +5,39 @@ import { useStoreCart } from "../../store/cart.store";
 import { useStoreFavorite } from "../../store/favorite.store";
 import { events } from "../../utils/data";
 import Link from "next/link";
+import { Search } from 'lucide-react';
 
 const CardsComponent = () => {
   const [isClicked, setIsClicked] = useState(false);  
   const { cartItems, toggleItem } = useStoreCart();
   const { selectedFavoriteIds, toggleItemFavoriteId } = useStoreFavorite();
+      const [searchTerm, setSearchTerm] = useState('');        
+   const filteredEvents = searchTerm.length > 0 ? events.filter(event => 
+    event.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    event.category.toLocaleLowerCase().includes(searchTerm.toLowerCase()) ||
+    event.country.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+  ) : events;
 
   return (
-    <div className="w-full flex justify-center items-center lg:shadow-2xl bg-white px-8 py-60 lg:py-8 md:py-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:px-12 lg:px-12 py-4 gap-6 bg-slate-100 rounded-2xl">
-        {events.map((event, index) => (
+    <>
+    <div className="flex justify-center items-center py-20 relative">
+           <input type="text"
+           value={searchTerm}
+           onChange={(e)=>setSearchTerm(e.target.value)}
+            placeholder="Search either for title, catergory, country..." 
+            className="px-4 py-4 rounded-lg border w-[500px] h-full"  />   
+          
+           <button onClick={() => setIsClicked(!isClicked)} className="flex gap-2 bg-primary text-white px-4 py-3 rounded-2xl hover:bg-primary hover:scale-105 transition 
+           in-out-ease duration-300 shadow-lg absolute ml-[380px]"><Search color="#000000" /> {isClicked ? "Search" : "Search"}</button>    
+       </div>
+       {/* <h1 onChange={(e) => setSearchTerm(e.target.value)}>{searchTerm}</h1> */}
+    <div className="w-full flex justify-center items-center lg:shadow-2xl px-8 py-60 lg:py-8 md:py-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:px-12 lg:px-10 py-4 gap-12 rounded-2xl">
+        {filteredEvents.map((event, index) => (
           <Link
             href={`/events/${event.slug}`}  
             key={event.id}
-            className="hover:scale-95 transition ease-in-out duration-300 rounded-2xl shadow-md w-[400px] container mx-auto p-2 bg-[url('/hero/contact-bg.png')] bg-cover bg-center flex flex-col items-center text-gray-400 bg-white h-[100%]"
+            className="hover:scale-95 transition ease-in-out duration-300 rounded-2xl shadow-lg border-gray-10 border w-[400px] container mx-auto p-2 bg-[url('/hero/contact-bg.png')] bg-cover bg-center flex flex-col items-center text-gray-400 h-[100%]"
           >
             <div
               style={{
@@ -53,7 +72,7 @@ const CardsComponent = () => {
             </div>
 
             {/* Rating */}
-            <div className="flex flex-row w-full items-center gap-6 p-4">
+            <div className="flex flex-row w-full items-center text-red-500 gap-6 p-4">
               <ul className="flex">
                 {Array(5).fill(0).map((_, i) => (
                   <li key={i}>
@@ -97,7 +116,7 @@ const CardsComponent = () => {
             <div className="w-full py-2 m-2 leading-10">
               <div className="flex flex-row w-full justify-between items-center px-2">
                 <ul>
-                  <li className="text-2xl text-green-600 font-bold">
+                  <li className="text-2xl text-primary font-bold">
                     From ${event.discountPrice}{" "}
                     <b className="text-sm text-gray-400 font-semibold line-through">
                       ${event.price}
@@ -110,7 +129,7 @@ const CardsComponent = () => {
                       e.preventDefault(); // ✅ stop navigation when clicking cart
                       toggleItem(event);
                     }} 
-                    className="w-[150px] p-3 rounded-2xl bg-green-500 text-sm shadow-lg font-bold hover:bg-green-600 text-white"
+                    className="w-[150px] p-3 rounded-2xl bg-primary text-sm shadow-lg font-bold hover:bg-primary-dark text-white"
                   >
                     {cartItems.some(item => item.id === event.id) ? "Remove from Cart" : "Add to Cart"}
                   </button>
@@ -124,6 +143,8 @@ const CardsComponent = () => {
         ))}
       </div>
     </div>
+
+    </>
   );
 };
 

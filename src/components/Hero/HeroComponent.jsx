@@ -5,17 +5,21 @@ import link from "next/link";
 import React from 'react';
 import { usePathname } from "next/navigation";
 
+
+
 const  HeroComponent =() => {
   // const [showButton, setShowButton] = useState(true);
   const pathname = usePathname();
 // const showButton = pathname === "/contact"
  const showButton = pathname === "/contact" || pathname === "/"
-               
-
+     
     return (
-
-        <div className="relative h-[20vh] md:h-[50vh] lg:h-[80vh] text-white text-center flex items-centerjustify-center px-5">
-        <div className="absolute w-full h-[100%] border inset-0 bg-cover bg-center bg-no-repeat" style={{
+       
+          <>
+        <div className="relative h-[20vh] md:h-[50vh] lg:h-[100vh] text-white text-center flex items-centerjustify-center px-5"
+        >
+        <div className="absolute w-full h-[100%] border inset-0 bg-cover bg-center bg-no-repeat" 
+        style={{
             background: 'url(" https://images.pexels.com/photos/2026960/pexels-photo-2026960.jpeg ")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -38,7 +42,7 @@ const  HeroComponent =() => {
               
                <div>
                  {showButton && (
-                  <button className="bg-pink-300 text-white px-4 py-3 rounded-2xl hover:bg-pink-600 hover:scale-105 transition in-out-ease duration-300 shadow-lg">
+                  <button className="bg-primary text-white px-4 py-3 rounded-2xl hover:bg-primary-dark hover:scale-105 transition in-out-ease duration-300 shadow-lg">
                    Get Started
                   </button>
                    )}
@@ -48,7 +52,8 @@ const  HeroComponent =() => {
         </div>
         </div>
 
-
+       
+     </>
 
     );
 }

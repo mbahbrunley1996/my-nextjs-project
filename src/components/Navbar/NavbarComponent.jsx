@@ -10,6 +10,34 @@ import React, { useState } from 'react';
 import { usePathname } from "next/navigation";
 import { useStoreCart } from "../../store/cart.store";
 import { useStoreFavorite } from "../../store/favorite.store";
+import { href } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+    import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+  
+} from "@/components/ui/dropdown-menu";
+import { Menu } from 'lucide-react';
+import { ModeToggle } from "../ModeToggle/ModeToggle";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+
+
 
 const NavbarComponent =() => {
   const { cartItems } = useStoreCart();  
@@ -25,12 +53,12 @@ const NavbarComponent =() => {
 
  return (
    
-<nav className="bg-gray-500 h-[70px] p-3 text-white font-semibold fixed top-0 left-0 right-0 z-50">
+<nav className="bg-primary h-[70px] p-3 text-white font-semibold fixed top-0 left-0 right-0 z-50">
 <div className="container flex justify-between  items-center mx-auto">
     <div className='flex items-center '>
          <Link href="/"><img className="w-15 rounded-full" src="/image copy 6.png" alt="logo" /></Link>
          
-          <h1 className="text-4xl text-pink-700 font-bold font-serif flex relative right-5">NATURE</h1>
+          <h1 className="text-4xl  font-bold font-serif flex relative right-5">NATURE</h1>
         </div>
 
           <ul className="flex space-x-4 font-semibold justify-center items-center">        
@@ -55,8 +83,8 @@ const NavbarComponent =() => {
         </div>
        
        </ul>
-    
-         <ul className="flex flex-row justify-center items-center gap-8 ">
+
+        <ul className="flex flex-row justify-center items-center gap-8 ">
         {/* <div className="flex relative">
         
        <li onClick= {() =>setLike(!like)}> <span><FaHeart size={30}/></span><span className="flex absolute left-4 bottom-4 rounded-full 
@@ -100,11 +128,76 @@ const NavbarComponent =() => {
           bg-red-700 justify-center items-center font-light text-sm p-[5px]"><button> {cartItems.length} </button> </span> </li>
           </div> </Link>
 
-          <li><img className="w-15 rounded-full" src="/1733775063817.jpg" alt="profile pic" /></li>
-    </ul>
+          {/* <li><img className="w-15 rounded-full" src="/1733775063817.jpg" alt="profile pic" /></li> */}
 
-    {showButton &&  <button className="border bg-pink-300 shadow-xl text-xl font-bold hover:scale-95 rounded-2xl p-2"><Link href="/signup" className="text-white/100 hover:text-gray-300">Sign Up </Link></button>}
+          <li>
+              <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+       <Menu color="#000000" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="start">
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            Profile
+            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Billing
+            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Settings
+            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Keyboard shortcuts
+            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>Team</DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuItem>Email</DropdownMenuItem>
+                <DropdownMenuItem>Message</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>More...</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuItem>
+            New Team
+            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+          </DropdownMenuItem>
+           {/* signIn Button */}
+          <SignedOut> <SignInButton /> </SignedOut>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>GitHub</DropdownMenuItem>
+        <DropdownMenuItem>Support</DropdownMenuItem>
+        <DropdownMenuItem disabled>API</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          Log out
+          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+          </li>
+          <li className="text-black">
+            <ModeToggle color={"#000000"} />
+          </li>
+          <UserButton />
+      </ul>
+
+    {showButton &&  <button className=" bg-green-600 shadow-xl text-sm font-bold hover:scale-95 rounded-2xl px-3 py-2"><Link href="/signup" className="text-white/100 hover:text-gray-300">Sign Up </Link></button>}
     </div>
+
+
 
 
 </nav>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 const FooterComponent = () => {
     return(
         <>
-        <footer className='w-max-[1200px]  bg-amber-600'>
+        <footer className='w-max-[1200px]  bg-primary'>
             
          
               <div className=' flex flex-col  items-center justify-center'>

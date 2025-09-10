@@ -22,9 +22,9 @@ const EventPage = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center px-8 py-16">
+    <div className="w-[50%] min-h-screen px-2 flex flex-col py-16">
       {/* Title */}
-      <h1 className="text-5xl md:text-7xl font-bold text-center mb-8">
+      <h1 className="text-5xl md:text-4xl font-extrabold px-2 mb-8">
         {eventItem.title}
       </h1>
 
@@ -36,7 +36,7 @@ const EventPage = () => {
       />
 
       {/* Meta info */}
-      <div className="flex flex-wrap justify-center gap-6 text-gray-700 text-lg mb-6">
+      <div className="flex flex-wrap px-2 gap-6 text-gray-700 text-lg mb-6">
         <span className="flex items-center gap-2">
           <FaClock /> {eventItem.duration} days
         </span>
@@ -49,7 +49,7 @@ const EventPage = () => {
       </div>
 
       {/* Price Section */}
-      <div className="text-center mb-8">
+      <div className="px-2 mb-8">
         <p className="text-2xl font-bold text-green-600">
           From ${eventItem.discountPrice}{" "}
           <span className="line-through text-gray-400 text-lg">
@@ -62,7 +62,7 @@ const EventPage = () => {
       </div>
 
       {/* Tags */}
-      <div className="flex flex-wrap gap-3 justify-center mb-8">
+      <div className="flex flex-wrap gap-3 px-2 mb-8">
         {eventItem.tags.map((tag, index) => (
           <span
             key={index}
@@ -74,7 +74,7 @@ const EventPage = () => {
       </div>
 
       {/* Country + Category */}
-      <div className="text-center text-gray-600">
+      <div className="px-2 text-gray-600">
         <p>
           <strong>Country:</strong> {eventItem.country}
         </p>
